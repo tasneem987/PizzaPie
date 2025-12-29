@@ -1,12 +1,11 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL:
-    process.env.REACT_APP_API_URL ||
-    "https://pizzapie-backend.onrender.com",
+  baseURL: "https://pizzapie-backend.onrender.com", // Deployed backend
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: false, // keep false if not using cookies
 });
 
 export default api;
