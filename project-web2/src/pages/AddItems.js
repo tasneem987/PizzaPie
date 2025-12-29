@@ -4,16 +4,20 @@ import { Link, useNavigate } from "react-router-dom";
 import "../styles/AddItems.css";
 import { CartContext } from "../data/CartContext";
 
-const AddItem = () => {
+const AddMenu = () => {
   const { user } = useContext(CartContext);
-  const [item, setItem] = useState({ name: "", price: "" });
-  const [image, setImage] = useState(null);
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // Optional: show a message if not admin
+  const [item, setItem] = useState({
+    name: "",
+    price: "",
+    img: "",
+  });
+
+  const [error, setError] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
 
+  // ✅ Check admin
   useEffect(() => {
     if (user && user.email === "admin@pizzapie.com") {
       setIsAdmin(true);
@@ -23,10 +27,13 @@ const AddItem = () => {
   }, [user]);
 
   const handleChange = (e) => {
-    setItem((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setItem((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
 
-  const handleClick = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -35,25 +42,34 @@ const AddItem = () => {
       return;
     }
 
-    if (!item.name || !item.price || !image) {
-      setError("Please fill all fields and select an image.");
+    if (!item.name || !item.price || !item.img) {
+      setError("Please fill all fields.");
       return;
     }
 
-    const formData = new FormData();
-    formData.append("name", item.name);
-    formData.append("price", item.price);
-    formData.append("image", image);
-
     try {
-      await axios.post("http://localhost:5000/menu", formData);
+      await axios.post(
+        "https://pizzapie-backend.onrender.com/menu",
+        {
+          name: item.name,
+          price: item.price,
+          img: item.img,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
       navigate("/menu");
     } catch (err) {
-      console.error("Add item error:", err);
-      setError("Failed to add item. Check console for details.");
+      console.error("Add menu item error:", err);
+      setError("Failed to add item.");
     }
   };
 
+  // ❌ Not logged in
   if (!user) {
     return (
       <div className="add-item">
@@ -73,34 +89,40 @@ const AddItem = () => {
         <h1>Add Menu Item</h1>
 
         {!isAdmin && (
-          <p style={{ color: "red" }}>Only the admin can add menu items.</p>
+          <p style={{ color: "red" }}>
+            Only the admin can add menu items.
+          </p>
         )}
 
         <input
           type="text"
-          placeholder="Item name"
           name="name"
+          placeholder="Item name"
+          value={item.name}
           onChange={handleChange}
           disabled={!isAdmin}
         />
 
         <input
           type="number"
-          placeholder="Price"
           name="price"
+          placeholder="Price"
           step="0.01"
+          value={item.price}
           onChange={handleChange}
           disabled={!isAdmin}
         />
 
         <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setImage(e.target.files[0])}
+          type="text"
+          name="img"
+          placeholder="Image URL (https://...)"
+          value={item.img}
+          onChange={handleChange}
           disabled={!isAdmin}
         />
 
-        <button onClick={handleClick} disabled={!isAdmin}>
+        <button onClick={handleSubmit} disabled={!isAdmin}>
           Add Item
         </button>
 
@@ -114,4 +136,4 @@ const AddItem = () => {
   );
 };
 
-export default AddItem;
+export default AddMenu;
