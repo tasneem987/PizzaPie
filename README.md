@@ -51,9 +51,8 @@ PORT=5000
 ```bash
 node server.js
 ```
-//Backend runs at http://localhost:5000.
 
-###Frontend Setup
+### Frontend Setup
 
 1. Navigate to the frontend folder:
 ```bash
@@ -72,4 +71,4 @@ REACT_APP_API_URL=http://localhost:5000
 ```bash
 npm start
 ```
-//Frontend runs at http://localhost:3000.
+
