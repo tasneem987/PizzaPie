@@ -37,7 +37,7 @@ cd PizzaPie/pizza-database
 2. Install dependencies:
 ```bash
 npm install
-
+```
 3. Create a .env file in pizza-database with your database credentials:
 ```bash
 DB_HOST=your_db_host
@@ -46,10 +46,11 @@ DB_PASSWORD=your_db_password
 DB_NAME=your_db_name
 ADMIN_EMAIL=admin@pizzapie.com
 PORT=5000
-
+```
 4. Start the backend server:
 ```bash
 node server.js
+```
 //Backend runs at http://localhost:5000.
 
 ###Frontend Setup
@@ -57,17 +58,18 @@ node server.js
 1. Navigate to the frontend folder:
 ```bash
 cd ../project-web2
-
+```
 2. Install dependencies:
 ```bash
 npm install
-
+```
 3. Create a .env file in project-web2:
-``bash
+```bash
 env
 REACT_APP_API_URL=http://localhost:5000
-
+```
 4. Start the frontend:
 ```bash
 npm start
-Frontend runs at http://localhost:3000.
+```
+//Frontend runs at http://localhost:3000.
