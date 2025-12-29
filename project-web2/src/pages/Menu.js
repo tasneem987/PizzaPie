@@ -86,9 +86,10 @@ const handleDelete = async (itemId) => {
           <div className="box" key={item.id}>
             <div className="box-img">
               <img
-                src={`http://localhost:5000/images/${item.img}`}
-                alt={item.name}
-              />
+  src={`https://pizzapie-backend.onrender.com${item.img}`}
+  alt={item.name}
+/>
+
             </div>
 
             <h2>{item.name}</h2>
