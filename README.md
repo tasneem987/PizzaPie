@@ -24,7 +24,7 @@ PizzaPie is a full-stack web app for browsing, adding, and ordering pizza menu i
 ## Setup Instructions
 
 ### Prerequisites
-- Node.js (v18+ recommended)  
+- Node.js   
 - npm  
 - MySQL
 
@@ -43,6 +43,8 @@ DB_PASSWORD=your_db_password
 DB_NAME=your_db_name
 ADMIN_EMAIL=admin@pizzapie.com
 PORT=5000
+
+
 Start the backend:
 
 bash
@@ -68,16 +70,8 @@ npm start
 Runs at: http://localhost:3000
 
 Screenshots
-Home Page
-
-
-Menu Page
-
-
-Add Item Page
-
-
-Cart Page
-
-
-Reviews Page
+![Home Page](Web2-Project-SCREENSOTS/HomePage.png)
+![Menu Page](Web2-Project-SCREENSOTS/MenuPage.png)
+![Add Item Page](Web2-Project-SCREENSOTS/AddItemsPage.png)
+![Cart Page](Web2-Project-SCREENSOTS/CartPage.png)
+![Reviews Page](Web2-Project-SCREENSOTS/Reviews.png)
