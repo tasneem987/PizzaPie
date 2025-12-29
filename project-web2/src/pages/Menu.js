@@ -38,18 +38,16 @@ const handleDelete = async (itemId) => {
     return;
   }
 
-  if (window.confirm("Are you sure you want to delete this item?")) {
-    try {
-      // Send userEmail as query param
-      await api.delete(`/menu/${itemId}?userEmail=${user.email}`);
-      // Remove item from state so it disappears from UI
-      setMenuItems(menuItems.filter((item) => item.id !== itemId));
-    } catch (err) {
-      console.error("Delete item error:", err.response || err);
-      alert(
-        err.response?.data?.message || "Failed to delete item due to server error"
-      );
-    }
+  if (!window.confirm("Are you sure you want to delete this item?")) return;
+
+  try {
+    await api.delete(`/menu/${itemId}?userEmail=${encodeURIComponent(user.email)}`);
+
+    // Remove from UI
+    setMenuItems(menuItems.filter(item => item.id !== itemId));
+  } catch (err) {
+    console.error("Delete item error:", err.response || err);
+    alert(err.response?.data?.message || "Failed to delete item");
   }
 };
 
