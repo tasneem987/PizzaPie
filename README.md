@@ -24,16 +24,21 @@ PizzaPie is a full-stack web app for browsing, adding, and ordering pizza menu i
 ## Setup Instructions
 
 ### Prerequisites
-- Node.js   
+- Node.js (v18+ recommended)  
 - npm  
 - MySQL
 
 ### Backend Setup
+1. Clone the repository:
 ```bash
 git clone https://github.com/tasneem987/PizzaPie.git
 cd PizzaPie/pizza-database
+Install dependencies:
+
+bash
+Copy code
 npm install
-Create a .env file in pizza-database:
+Create a .env file in pizza-database with your database credentials:
 
 env
 Copy code
@@ -43,19 +48,23 @@ DB_PASSWORD=your_db_password
 DB_NAME=your_db_name
 ADMIN_EMAIL=admin@pizzapie.com
 PORT=5000
-
-
-Start the backend:
+Start the backend server:
 
 bash
 Copy code
 node server.js
-Runs at: http://localhost:5000
+Backend runs at http://localhost:5000.
 
 Frontend Setup
+Navigate to the frontend folder:
+
 bash
 Copy code
 cd ../project-web2
+Install dependencies:
+
+bash
+Copy code
 npm install
 Create a .env file in project-web2:
 
@@ -67,11 +76,4 @@ Start the frontend:
 bash
 Copy code
 npm start
-Runs at: http://localhost:3000
-
-Screenshots
-![Home Page](Web2-Project-SCREENSOTS/HomePage.png)
-![Menu Page](Web2-Project-SCREENSOTS/MenuPage.png)
-![Add Item Page](Web2-Project-SCREENSOTS/AddItemsPage.png)
-![Cart Page](Web2-Project-SCREENSOTS/CartPage.png)
-![Reviews Page](Web2-Project-SCREENSOTS/Reviews.png)
+Frontend runs at http://localhost:3000.
