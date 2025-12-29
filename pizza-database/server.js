@@ -51,18 +51,30 @@ module.exports = db;
 // ---------------------------
 // ROUTES
 // ---------------------------
-app.use("/images", express.static("public/images"));
+app.use("/images", express.static(path.join(process.cwd(), "public/images")));
 
 // ----- MENU ITEMS -----
-app.get("/menu", (req, res) => {
-  db.query("SELECT * FROM menu_items", (err, results) => {
+app.post("/menu", upload.single("image"), (req, res) => {
+  const { name, price } = req.body;
+
+  const imagePath = req.file
+    ? `/images/${req.file.filename}`
+    : req.body.image;
+
+  if (!name || !price || !imagePath) {
+    return res.status(400).json({ message: "Missing fields" });
+  }
+
+  const sql = "INSERT INTO menu (name, price, img) VALUES (?, ?, ?)";
+  db.query(sql, [name, price, imagePath], (err, result) => {
     if (err) {
-      console.error(err);
-      return res.json({ success: false, message: "Failed to fetch menu" });
+      console.error("DB error:", err);
+      return res.status(500).json(err);
     }
-    res.json(results);
+    res.status(201).json({ message: "Menu item added" });
   });
 });
+
 
 // ----- REGISTER -----
 app.post("/register", async (req, res) => {
