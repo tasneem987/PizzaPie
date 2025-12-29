@@ -1,0 +1,112 @@
+.reviews {
+  padding: 90px 10%;
+  background: #fff;
+}
+
+.reviews .heading span {
+  color: var(--main-color);
+  font-weight: 600;
+}
+
+.reviews .heading h2 {
+  font-size: 2.3rem;
+  margin-bottom: 30px;
+}
+
+/* Fixed Reviews */
+.fixed-reviews {
+  background: #fafafa;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 40px;
+}
+
+.fixed-review {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.fixed-review:last-child {
+  border-bottom: none;
+}
+
+.fixed-review h4 {
+  font-size: 1.2rem;
+  color: var(--main-color);
+}
+
+.fixed-review p {
+  color: #555;
+  margin-top: 5px;
+}
+
+/* Add Review Form */
+.review-form {
+  background: #fff7e6;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 40px;
+}
+
+.review-form h3 {
+  color: var(--main-color);
+  margin-bottom: 15px;
+}
+
+.review-form input,
+.review-form textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+  outline: none;
+  font-size: 1rem;
+}
+
+.review-form button {
+  padding: 12px 25px;
+  background: var(--main-color);
+  color: rgb(112, 112, 112);
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.review-form button:hover {
+  background: #ffa400;
+  color: white;
+}
+
+/* User Reviews */
+.reviews-container .review {
+  background: #fafafa;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.reviews-container .review h4 {
+  font-size: 1.2rem;
+  color: var(--main-color);
+}
+
+.reviews-container .review p {
+  color: #555;
+  margin-top: 5px;
+}
+
+
+.delete-review-btn {
+  background: transparent;
+  border: none;
+  color: #d00000;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+.delete-review-btn:hover {
+  text-decoration: underline;
+}

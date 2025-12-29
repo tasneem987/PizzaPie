@@ -1,0 +1,108 @@
+/* Contact Section Styling */
+.contact-section {
+  padding: 80px 10%;
+  background: #fafafa;
+}
+
+.contact-heading {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.contact-heading h2 {
+  font-size: 2.5rem;
+  color: var(--main-color);
+}
+
+.contact-heading p {
+  color: #555;
+  font-size: 1.1rem;
+  margin-top: 10px;
+}
+
+.contact-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, auto));
+  gap: 2rem;
+}
+
+.contact-box {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.contact-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.contact-box h3 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  color: var(--main-color);
+}
+
+.contact-box ul li {
+  list-style: none;
+  margin-bottom: 12px;
+}
+
+.contact-box ul li a {
+  text-decoration: none;
+  color: #333;
+  transition: 0.3s;
+}
+
+.contact-box ul li a:hover {
+  color: #ffb411;
+}
+
+/* Social icons */
+.social {
+  display: flex;
+  margin-top: 15px;
+  flex-direction: column;
+  gap: 6px;
+
+}
+
+.social i {
+  font-size: 22px;
+  color: #333;
+  transition: 0.3s;
+}
+
+.social i:hover {
+  color: var(--main-color);
+}
+
+/* Address Box */
+.address p {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contact-section {
+    padding: 60px 5%;
+  }
+
+  .contact-heading h2 {
+    font-size: 2rem;
+  }
+}
+
+.social a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.social a:hover{ color: #ffb411; }

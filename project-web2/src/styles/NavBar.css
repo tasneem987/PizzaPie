@@ -1,0 +1,105 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* NAVBAR CONTAINER */
+header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 18px 60px;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+  z-index: 999;
+}
+
+/* LOGO */
+.logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #ffb411;
+  text-decoration: none;
+}
+
+/* NAVBAR LIST */
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  list-style: none;
+}
+
+.navbar li {
+  list-style: none;
+}
+
+.navbar a {
+  color: #333;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+/* Hover effect */
+.navbar a:hover {
+  color: #ffb411;
+}
+
+/* HAMBURGER MENU ICON */
+#menu-icon {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/* RESPONSIVE FOR MOBILE */
+@media (max-width: 768px) {
+  header {
+    padding: 18px 25px;
+  }
+
+  .navbar {
+    position: absolute;
+    top: 80px;
+    right: -100%;
+    width: 100%;
+    flex-direction: column;
+    background: white;
+    padding: 20px 0;
+    gap: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: 0.3s ease;
+  }
+
+  .navbar.active {
+    right: 0;
+  }
+
+  #menu-icon {
+    display: block;
+    color: #333;
+  }
+}
+
+.logout-btn {
+  font-size: 0.8rem;       /* smaller than other links */
+  color: #888;             /* lighter than black */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  margin-left: 5px;
+  transition: color 0.2s ease;
+}
+
+.logout-btn:hover {
+  color: #ffb411;          /* same hover as other links */
+}

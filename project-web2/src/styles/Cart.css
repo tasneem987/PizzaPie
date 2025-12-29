@@ -1,0 +1,133 @@
+/* Cart.css */
+
+.cart-page {
+  padding: 100px 10%;
+  background: #fafafa;
+  min-height: 100vh;
+}
+
+.cart-page h1 {
+  font-size: 2.3rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: 0.3s;
+}
+
+.cart-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.cart-img {
+  width: 120px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-right: 20px;
+}
+
+.cart-item h3 {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.cart-item p {
+  color: #777;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.cart-buttons button {
+  padding: 5px 12px;
+  margin-right: 10px;
+  background: var(--main-color);
+  color: rgb(0, 0, 0);
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+}
+
+.cart-buttons button:hover {
+  background: #ffa400;
+  color: white;
+}
+
+.cart-page h2 {
+  font-size: 1.5rem;
+  margin-top: 20px;
+  color: var(--main-color);
+}
+
+/* Clear Cart Button */
+.btn-clear {
+  margin-top: 20px;
+  margin-right: 15px;
+  padding: 10px 25px;
+  background: var(--main-color);
+  color: rgb(0, 0, 0);
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+}
+
+.btn-clear:hover {
+  background: #ffa400;
+  color: white;
+}
+
+/* Purchase Button */
+.btn-purchase {
+  margin-top: 20px;
+  padding: 10px 25px;
+  background: #28a745; /* green color for purchase */
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+}
+
+.btn-purchase:hover {
+  background: #218838;
+}
+
+/* Skeleton styles */
+.skeleton {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.skeleton-box {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.cart-img.skeleton-box {
+  width: 80px;
+  height: 80px;
+  margin-right: 15px;
+}
+
+.cart-details {
+  flex: 1;
+}
+
+.skeleton-text {
+  width: 80%;
+  height: 15px;
+  margin-bottom: 10px;
+}
