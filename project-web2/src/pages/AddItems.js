@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../api/axios";
 import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/AddItems.css";
@@ -8,29 +8,17 @@ const AddMenu = () => {
   const { user } = useContext(CartContext);
   const navigate = useNavigate();
 
-  const [item, setItem] = useState({
-    name: "",
-    price: "",
-    img: "",
-  });
-
+  const [item, setItem] = useState({ name: "", price: "" });
+  const [image, setImage] = useState(null);
   const [error, setError] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
 
-  // ✅ Check admin
   useEffect(() => {
-    if (user && user.email === "admin@pizzapie.com") {
-      setIsAdmin(true);
-    } else {
-      setIsAdmin(false);
-    }
+    setIsAdmin(user?.email === "admin@pizzapie.com");
   }, [user]);
 
   const handleChange = (e) => {
-    setItem((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    setItem({ ...item, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -38,100 +26,70 @@ const AddMenu = () => {
     setError("");
 
     if (!isAdmin) {
-      setError("Only the admin can add menu items.");
-      return;
-    }
-
-    if (!item.name || !item.price || !item.img) {
-      setError("Please fill all fields.");
+      setError("Only admin can add menu items");
       return;
     }
 
     try {
-      await axios.post(
-        "https://pizzapie-backend.onrender.com/menu",
-        {
-          name: item.name,
-          price: item.price,
-          img: item.img,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const formData = new FormData();
+      formData.append("name", item.name);
+      formData.append("price", item.price);
+      formData.append("image", image);
+
+      await api.post("/menu", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       navigate("/menu");
     } catch (err) {
       console.error("Add menu item error:", err);
-      setError("Failed to add item.");
+      setError("Failed to add item");
     }
   };
 
-  // ❌ Not logged in
   if (!user) {
     return (
       <div className="add-item">
-        <div className="add-item-card">
-          <h2>You must be logged in to add items.</h2>
-          <Link to="/menu" className="link">
-            Back to Menu
-          </Link>
-        </div>
+        <h2>You must be logged in</h2>
+        <Link to="/menu">Back to Menu</Link>
       </div>
     );
   }
 
   return (
     <div className="add-item">
-      <div className="add-item-card">
+      <form className="add-item-card" onSubmit={handleSubmit}>
         <h1>Add Menu Item</h1>
-
-        {!isAdmin && (
-          <p style={{ color: "red" }}>
-            Only the admin can add menu items.
-          </p>
-        )}
 
         <input
           type="text"
           name="name"
           placeholder="Item name"
-          value={item.name}
           onChange={handleChange}
-          disabled={!isAdmin}
+          required
         />
 
         <input
           type="number"
           name="price"
-          placeholder="Price"
           step="0.01"
-          value={item.price}
+          placeholder="Price"
           onChange={handleChange}
-          disabled={!isAdmin}
+          required
         />
 
         <input
-          type="text"
-          name="img"
-          placeholder="Image URL (https://...)"
-          value={item.img}
-          onChange={handleChange}
-          disabled={!isAdmin}
+          type="file"
+          accept="image/*"
+          onChange={(e) => setImage(e.target.files[0])}
+          required
         />
 
-        <button onClick={handleSubmit} disabled={!isAdmin}>
-          Add Item
-        </button>
+        <button type="submit">Add Item</button>
 
-        {error && <span className="error">{error}</span>}
-
-        <Link to="/menu" className="link">
-          Back to Menu
-        </Link>
-      </div>
+        {error && <p className="error">{error}</p>}
+        <Link to="/menu">Back to Menu</Link>
+      </form>
     </div>
   );
 };
