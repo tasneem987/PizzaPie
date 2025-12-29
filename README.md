@@ -73,8 +73,8 @@ npm start
 ```
 
 ## Screenshots
-![Home Page](Web2-Project-SCREENSOTS/HomePage.png)
+![Home Page](Web2-Project-SCREENSOTS/HomePage.png) 
 ![Menu Page](Web2-Project-SCREENSOTS/MenuPage.png)
-![Add Item Page](Web2-Project-SCREENSOTS/AddItemsPage.png)
+![Add Item Page](Web2-Project-SCREEMSHOTS/AddItemsPage.png)
 ![Cart Page](Web2-Project-SCREENSOTS/CartPage.png)
 ![Reviews Page](Web2-Project-SCREENSOTS/Reviews.png)
