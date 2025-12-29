@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000", // backend
+  baseURL: "https://pizzapie-backend.onrender.com", // updated backend
   headers: {
     "Content-Type": "application/json",
   },
@@ -9,3 +9,4 @@ const api = axios.create({
 });
 
 export default api;
+
