@@ -33,7 +33,7 @@ PizzaPie is a full-stack web app for browsing, adding, and ordering pizza menu i
 ```bash
 git clone https://github.com/tasneem987/PizzaPie.git
 cd PizzaPie/pizza-database
-
+```
 2. Install dependencies:
 ```bash
 npm install
