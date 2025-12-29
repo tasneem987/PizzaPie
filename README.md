@@ -24,7 +24,7 @@ PizzaPie is a full-stack web app for browsing, adding, and ordering pizza menu i
 ## Setup Instructions
 
 ### Prerequisites
-- Node.js (v18+ recommended)  
+- Node.js 
 - npm  
 - MySQL
 
@@ -72,3 +72,9 @@ REACT_APP_API_URL=http://localhost:5000
 npm start
 ```
 
+## Screenshots
+![Home Page](Web2-Project-SCREENSOTS/HomePage.png)
+![Menu Page](Web2-Project-SCREENSOTS/MenuPage.png)
+![Add Item Page](Web2-Project-SCREENSOTS/AddItemsPage.png)
+![Cart Page](Web2-Project-SCREENSOTS/CartPage.png)
+![Reviews Page](Web2-Project-SCREENSOTS/Reviews.png)
