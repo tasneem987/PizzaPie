@@ -33,47 +33,41 @@ PizzaPie is a full-stack web app for browsing, adding, and ordering pizza menu i
 ```bash
 git clone https://github.com/tasneem987/PizzaPie.git
 cd PizzaPie/pizza-database
-Install dependencies:
 
-bash
-Copy code
+2. Install dependencies:
+```bash
 npm install
-Create a .env file in pizza-database with your database credentials:
 
-env
-Copy code
+3. Create a .env file in pizza-database with your database credentials:
+```bash
 DB_HOST=your_db_host
 DB_USER=your_db_user
 DB_PASSWORD=your_db_password
 DB_NAME=your_db_name
 ADMIN_EMAIL=admin@pizzapie.com
 PORT=5000
-Start the backend server:
 
-bash
-Copy code
+4. Start the backend server:
+```bash
 node server.js
-Backend runs at http://localhost:5000.
+//Backend runs at http://localhost:5000.
 
-Frontend Setup
-Navigate to the frontend folder:
+###Frontend Setup
 
-bash
-Copy code
+1. Navigate to the frontend folder:
+```bash
 cd ../project-web2
-Install dependencies:
 
-bash
-Copy code
+2. Install dependencies:
+```bash
 npm install
-Create a .env file in project-web2:
 
+3. Create a .env file in project-web2:
+``bash
 env
-Copy code
 REACT_APP_API_URL=http://localhost:5000
-Start the frontend:
 
-bash
-Copy code
+4. Start the frontend:
+```bash
 npm start
 Frontend runs at http://localhost:3000.
