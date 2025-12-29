@@ -33,3 +33,22 @@ PizzaPie is a full-stack web app for browsing, adding, and ordering pizza menu i
 git clone https://github.com/tasneem987/PizzaPie.git
 cd PizzaPie/pizza-database
 npm install
+
+
+## Screenshots
+
+### Home Page
+![Cart Page](Web2-Project-SCREEMSHOTS/HomePage.png)
+
+### Menu Page
+![Menu Page](Web2-Project-SCREEMSHOTS/MenuPage.png)
+
+### Add Item Page
+![Add Item Page](Web2-Project-SCREEMSHOTS/AddItemsPage.png)
+
+### Cart Page
+![Cart Page](Web2-Project-SCREEMSHOTS/CartPage.png)
+
+### Reviews
+![Cart Page](Web2-Project-SCREEMSHOTS/Reviews.png)
+
