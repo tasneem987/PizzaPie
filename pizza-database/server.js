@@ -1,6 +1,8 @@
 // ---------------------------
 // IMPORTS
 // ---------------------------
+require("dotenv").config();
+
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
@@ -35,11 +37,12 @@ app.use(express.json()); // allows JSON in req.body
 // DATABASE CONNECTION
 // ---------------------------
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "pizza_db",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
+
 
 db.connect((err) => {
   if (err) {
@@ -272,7 +275,7 @@ app.delete("/menu/:id", (req, res) => {
     return res.status(400).json({ success: false, message: "User email required" });
   }
 
-  if (userEmail !== "admin@pizzapie.com") {
+  if (userEmail !== process.env.ADMIN_EMAIL) {
     return res.status(403).json({ success: false, message: "Unauthorized" });
   }
 
@@ -355,7 +358,7 @@ app.delete("/reviews/:id", (req, res) => {
 // ---------------------------
 // START SERVER
 // ---------------------------
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`✅ Server running on http://localhost:${PORT}`);
 });
