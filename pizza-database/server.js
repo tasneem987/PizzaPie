@@ -11,69 +11,53 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
-// Set storage engine
+// ---------------------------
+// MULTER SETUP FOR IMAGE UPLOAD
+// ---------------------------
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/images"); // folder where images are saved
+    cb(null, "public/images"); // folder to save images
   },
   filename: (req, file, cb) => {
-    // Keep original name or generate a unique one
-    cb(null, Date.now() + path.extname(file.originalname));
+    cb(null, Date.now() + path.extname(file.originalname)); // unique filename
   },
 });
-
 const upload = multer({ storage });
 
 // ---------------------------
 // APP INIT
 // ---------------------------
 const app = express();
-
-// Middleware
 app.use(cors());
-app.use(express.json()); // allows JSON in req.body
+app.use(express.json());
+app.use("/images", express.static(path.join(process.cwd(), "public/images"))); // serve images
 
 // ---------------------------
 // DATABASE CONNECTION
 // ---------------------------
 const db = mysql.createConnection(process.env.DATABASE_URL);
-
 db.connect((err) => {
-  if (err) {
-    console.error("❌ DB connection failed:", err);
-  } else {
-    console.log("✅ Connected to MySQL database");
-  }
+  if (err) console.error("❌ DB connection failed:", err);
+  else console.log("✅ Connected to MySQL database");
 });
-
-module.exports = db;
 
 // ---------------------------
 // ROUTES
 // ---------------------------
 app.use("/images", express.static(path.join(process.cwd(), "public/images")));
 
-// ----- MENU ITEMS -----
-app.post("/menu", upload.single("image"), (req, res) => {
-  const { name, price } = req.body;
-
-  const imagePath = req.file
-    ? `/images/${req.file.filename}`
-    : req.body.image;
-
-  if (!name || !price || !imagePath) {
-    return res.status(400).json({ message: "Missing fields" });
-  }
-
-  const sql = "INSERT INTO menu (name, price, img) VALUES (?, ?, ?)";
-  db.query(sql, [name, price, imagePath], (err, result) => {
+// GET all menu items
+app.get("/menu", (req, res) => {
+  const sql = "SELECT * FROM menu_items";
+  db.query(sql, (err, results) => {
     if (err) {
-      console.error("DB error:", err);
-      return res.status(500).json(err);
+      console.error("Fetch menu error:", err);
+      return res.status(500).json({ success: false, message: "Server error" });
     }
-    res.status(201).json({ message: "Menu item added" });
+    res.json(results);
   });
 });
+
 
 
 // ----- REGISTER -----
@@ -202,102 +186,42 @@ app.get("/cart/:userId", (req, res) => {
 
 
 
-// ----- ADD MENU ITEM -----
+// ADD new menu item
 app.post("/menu", upload.single("image"), (req, res) => {
-  console.log("========== /menu POST Request Received ==========");
-  console.log("Request body:", req.body);
-  console.log("Request file:", req.file);
-  console.log("Request headers:", req.headers);
-
   const { name, price } = req.body;
   const image = req.file;
 
-  if (!name || !price) {
-    console.log("❌ Missing name or price");
-    return res.status(400).json({ 
-      success: false, 
-      message: "Name and price are required" 
-    });
+  if (!name || !price || !image) {
+    return res.status(400).json({ success: false, message: "All fields required" });
   }
 
-  if (!image) {
-    console.log("❌ No image uploaded");
-    return res.status(400).json({ 
-      success: false, 
-      message: "Image is required" 
-    });
-  }
-
-  console.log(`✅ Received: ${name}, $${price}, image: ${image.filename}`);
-  
   const imgFilename = image.filename;
   const sql = "INSERT INTO menu_items (name, price, img) VALUES (?, ?, ?)";
-  const values = [name, parseFloat(price), imgFilename];
-  
-  console.log("Executing SQL:", sql, "with values:", values);
-
-  db.query(sql, values, (err, result) => {
+  db.query(sql, [name, parseFloat(price), imgFilename], (err, result) => {
     if (err) {
-      console.error("❌ Database error:", err);
-      console.error("SQL Error Code:", err.code);
-      console.error("SQL Error Message:", err.sqlMessage);
-      return res.status(500).json({ 
-        success: false, 
-        message: `Database error: ${err.sqlMessage || err.message}` 
-      });
+      console.error("DB error:", err);
+      return res.status(500).json({ success: false, message: "Database error" });
     }
-
-    console.log("✅ Database insert successful. ID:", result.insertId);
-    
-    // Verify the file was actually saved
-    const imagePath = path.join(__dirname, 'public/images', imgFilename);
-    if (fs.existsSync(imagePath)) {
-      console.log("✅ Image file saved successfully at:", imagePath);
-    } else {
-      console.log("⚠️ Warning: Image file not found at:", imagePath);
-    }
-
     res.json({
       success: true,
       message: "Menu item added successfully",
-      menuItem: { 
-        id: result.insertId, 
-        name, 
-        price, 
-        img: imgFilename 
-      },
+      menuItem: { id: result.insertId, name, price, img: imgFilename },
     });
   });
 });
 
-// ----- DELETE MENU ITEM -----
+// DELETE menu item
 app.delete("/menu/:id", (req, res) => {
   const menuId = req.params.id;
+  const userEmail = req.query.userEmail;
 
-  // Accept userEmail from query param (most reliable) or body (fallback)
-  const userEmail = req.query.userEmail || req.body.userEmail;
-
-  console.log("DELETE /menu/:id called with menuId:", menuId, "userEmail:", userEmail);
-
-  if (!userEmail) {
-    return res.status(400).json({ success: false, message: "User email required" });
-  }
-
-  if (userEmail !== process.env.ADMIN_EMAIL) {
-    return res.status(403).json({ success: false, message: "Unauthorized" });
-  }
+  if (!userEmail) return res.status(400).json({ success: false, message: "User email required" });
+  if (userEmail !== process.env.ADMIN_EMAIL) return res.status(403).json({ success: false, message: "Unauthorized" });
 
   const sql = "DELETE FROM menu_items WHERE id = ?";
   db.query(sql, [menuId], (err, result) => {
-    if (err) {
-      console.error("Delete menu item error:", err);
-      return res.status(500).json({ success: false, message: "Server error" });
-    }
-
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ success: false, message: "Menu item not found" });
-    }
-
+    if (err) return res.status(500).json({ success: false, message: "Server error" });
+    if (result.affectedRows === 0) return res.status(404).json({ success: false, message: "Menu item not found" });
     res.json({ success: true, message: "Menu item deleted" });
   });
 });
